@@ -11,6 +11,14 @@ interface State {
   counter: number
 }
 
+export const doIncrement = (prevState: Readonly<State>) => ({
+  counter: prevState.counter + 1,
+})
+
+export const doDecrement = (prevState: Readonly<State>) => ({
+  counter: prevState.counter - 1,
+})
+
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -20,17 +28,9 @@ class App extends Component<Props, State> {
     }
   }
 
-  onIncrement = () => {
-    this.setState((prevState: Readonly<State>) => ({
-      counter: prevState.counter + 1,
-    }));
-  }
+  onIncrement = () => this.setState(doIncrement);
 
-  onDecrement = () => {
-    this.setState((prevState: Readonly<State>) => ({
-      counter: prevState.counter - 1,
-    }));
-  }
+  onDecrement = () => this.setState(doDecrement);
 
   render() {
     const {counter} = this.state;
